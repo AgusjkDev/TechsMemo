@@ -5,12 +5,14 @@
 
     let timer = 0;
     let started = false;
+    let ended = false;
+    let interval;
     let flipped = [];
     let matched = [];
 
     function startTimer() {
         started = true;
-        setInterval(() => timer++, 1000);
+        interval = setInterval(() => timer++, 1000);
     }
 
     /**
@@ -52,6 +54,15 @@
                     techsToFlip.forEach(tech => flipTech(tech, true));
                 }, 1000);
             }
+        }
+    }
+
+    $: {
+        if (matched.length === techs.length) {
+            clearInterval(interval);
+            started = false;
+            ended = true;
+            alert(`Game ended in ${timer} seconds.`);
         }
     }
 </script>
