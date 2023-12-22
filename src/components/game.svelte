@@ -9,6 +9,7 @@
     let interval;
     let flipped = [];
     let matched = [];
+    let movements = 0;
 
     function startTimer() {
         started = true;
@@ -20,6 +21,8 @@
      * @param {boolean} backwards
      * */
     function flipTech(tech, backwards = false) {
+        if (!backwards) movements++;
+
         const techContainer = document.getElementById(tech.id);
         const techElement = techContainer.firstElementChild;
 
@@ -62,13 +65,16 @@
             clearInterval(interval);
             started = false;
             ended = true;
-            alert(`Game ended in ${timer} seconds.`);
+            alert(`Game ended in ${timer} seconds with ${movements} movements.`);
         }
     }
 </script>
 
-<div class="w-[92.5%] md:w-auto space-y-12">
-    <h2 class="font-bold text-2xl text-center">{formatTimer(timer)}</h2>
+<div class="w-[92.5%] md:w-auto space-y-8">
+    <div class="space-y-2">
+        <h2 class="font-bold text-2xl text-center">{formatTimer(timer)}</h2>
+        <h3 class="font-bold text-lg text-center">Movements: {movements}</h3>
+    </div>
 
     <div class="grid grid-cols-5 gap-5">
         {#each techs as tech}
