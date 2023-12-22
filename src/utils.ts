@@ -20,3 +20,10 @@ export function getRandomTechs(): { id: string; value: string }[] {
         value: tech,
     }));
 }
+
+export function formatTimer(timer: number) {
+    const seconds = timer % 60;
+    const minutes = (timer - seconds) / 60;
+
+    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}

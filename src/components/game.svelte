@@ -1,10 +1,17 @@
 <script>
-    import { getRandomTechs } from "utils";
+    import { getRandomTechs, formatTimer } from "utils";
 
     const techs = getRandomTechs();
 
+    let timer = 0;
+    let started = false;
     let flipped = [];
     let matched = [];
+
+    function startTimer() {
+        started = true;
+        setInterval(() => timer++, 1000);
+    }
 
     /**
      * @param {{id:string, value:string}} tech
@@ -25,6 +32,9 @@
     /** @param {{id:string, value:string}} tech */
     function handleTech(tech) {
         if (flipped.length === 2 || flipped.includes(tech)) return;
+
+        if (!started) startTimer();
+
         flipped = [...flipped, tech];
 
         flipTech(tech);
@@ -46,7 +56,9 @@
     }
 </script>
 
-<div class="w-[92.5%] md:w-auto space-y-4 mt-8">
+<div class="w-[92.5%] md:w-auto space-y-12">
+    <h2 class="font-bold text-2xl text-center">{formatTimer(timer)}</h2>
+
     <div class="grid grid-cols-5 gap-5">
         {#each techs as tech}
             <button
