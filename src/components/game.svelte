@@ -41,9 +41,9 @@
     }
 
     $: {
-        if (flipped.length == 2) {
+        if (flipped.length === 2) {
             if (flipped[0].value === flipped[1].value) {
-                matched = [...flipped];
+                matched = [...matched, ...flipped];
                 flipped = [];
             } else {
                 setTimeout(() => {
