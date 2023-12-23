@@ -1,6 +1,8 @@
 <script>
     import { onMount } from "svelte";
 
+    import Button from "./button.svelte";
+
     export let score;
     export let resetGame;
     export let toggleStartScreen;
@@ -27,18 +29,8 @@
     </div>
 
     <div class="space-x-2.5">
-        <button
-            class="py-2.5 w-36 font-medium md:text-sm rounded-md bg-slate-900"
-            on:click={resetGame}
-        >
-            Play Again
-        </button>
+        <Button onClick={resetGame}>Play Again</Button>
 
-        <button
-            class="py-2.5 w-36 font-medium md:text-sm rounded-md bg-slate-900"
-            on:click={toggleStartScreen}
-        >
-            Main Menu
-        </button>
+        <Button onClick={toggleStartScreen}>Main Menu</Button>
     </div>
 </div>

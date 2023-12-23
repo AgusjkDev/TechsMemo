@@ -1,4 +1,5 @@
 <script>
+    import Button from "./button.svelte";
     import Game from "./game.svelte";
 
     let showStartScreen = true;
@@ -12,12 +13,7 @@
     <h1 class="text-6xl md:text-7xl font-serif">TechsMemo</h1>
 
     {#if showStartScreen}
-        <button
-            class="py-2.5 w-36 font-medium md:text-sm rounded-md bg-slate-900"
-            on:click={toggleStartScreen}
-        >
-            Play
-        </button>
+        <Button onClick={toggleStartScreen}>Play</Button>
     {:else}
         <Game {toggleStartScreen} />
     {/if}
