@@ -19,6 +19,6 @@
             Play
         </button>
     {:else}
-        <Game />
+        <Game {toggleStartScreen} />
     {/if}
 </div>

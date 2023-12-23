@@ -1,7 +1,10 @@
 <script>
     import { getRandomTechs, formatTimer } from "utils";
+    import EndScreen from "./end-screen.svelte";
 
-    const techs = getRandomTechs();
+    export let toggleStartScreen;
+
+    let techs = getRandomTechs();
 
     let timer = 0;
     let started = false;
@@ -10,6 +13,7 @@
     let flipped = [];
     let matched = [];
     let movements = 0;
+    let score = 0;
 
     function startTimer() {
         started = true;
@@ -23,7 +27,7 @@
     function flipTech(tech, backwards = false) {
         if (!backwards) movements++;
 
-        const techContainer = document.getElementById(tech.id);
+        const techContainer = document.querySelector(`[data-tech="${tech.id}"]`);
         const techElement = techContainer.firstElementChild;
 
         techContainer.style = "transform: rotateY(90deg)";
@@ -45,11 +49,25 @@
         flipTech(tech);
     }
 
+    function resetGame() {
+        techs.forEach(tech => flipTech(tech, true));
+        techs = getRandomTechs();
+        timer = 0;
+        started = false;
+        ended = false;
+        interval = undefined;
+        flipped = [];
+        matched = [];
+        movements = 0;
+        score = 0;
+    }
+
     $: {
         if (flipped.length === 2) {
             if (flipped[0].value === flipped[1].value) {
                 matched = [...matched, ...flipped];
                 flipped = [];
+                // TODO: Increase score
             } else {
                 setTimeout(() => {
                     const techsToFlip = [...flipped];
@@ -65,10 +83,13 @@
             clearInterval(interval);
             started = false;
             ended = true;
-            alert(`Game ended in ${timer} seconds with ${movements} movements.`);
         }
     }
 </script>
+
+{#if ended}
+    <EndScreen {score} {resetGame} {toggleStartScreen} />
+{/if}
 
 <div class="w-[92.5%] md:w-auto space-y-8">
     <div class="space-y-2">
@@ -79,7 +100,7 @@
     <div class="grid grid-cols-5 gap-5">
         {#each techs as tech}
             <button
-                id={tech.id}
+                data-tech={tech.id}
                 class="aspect-square w-16 border-slate-800 select-none grid place-items-center rounded-md border-2 transition duration-500"
                 on:click={() => handleTech(tech)}
                 disabled={flipped.includes(tech) || matched.includes(tech)}
