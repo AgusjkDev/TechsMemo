@@ -13,7 +13,7 @@
     <h1 class="text-6xl md:text-7xl font-serif">TechsMemo</h1>
 
     {#if showStartScreen}
-        <Button onClick={toggleStartScreen}>Play</Button>
+        <Button className="w-36" onClick={toggleStartScreen}>Play</Button>
     {:else}
         <Game {toggleStartScreen} />
     {/if}

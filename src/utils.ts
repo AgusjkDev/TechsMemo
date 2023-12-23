@@ -1,3 +1,6 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 import techs from "data/techs";
 
 // Fisher–Yates shuffle
@@ -26,4 +29,8 @@ export function formatTimer(timer: number) {
     const minutes = (timer - seconds) / 60;
 
     return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
 }
