@@ -97,7 +97,7 @@
         <h3 class="font-bold text-lg text-center">Movements: {movements}</h3>
     </div>
 
-    <div class="grid grid-cols-5 gap-5">
+    <div class="grid grid-cols-5 gap-5 place-items-center">
         {#each techs as tech}
             <button
                 data-tech={tech.id}
