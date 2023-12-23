@@ -17,6 +17,7 @@
     let matched = [];
     let movements = 0;
     let score = 0;
+    let isBackgroundMusicMuted = false;
 
     const sounds = {
         "background-music": null,
@@ -88,6 +89,12 @@
             Math.round(BASE_POINTS - timer * TIMER_FACTOR - movements),
             Math.floor(BASE_POINTS / 10),
         );
+    }
+
+    function toggleBackgroundMusic() {
+        sounds["background-music"].volume = isBackgroundMusicMuted ? 0.1 : 0;
+
+        isBackgroundMusicMuted = !isBackgroundMusicMuted;
     }
 
     onMount(() => {
@@ -174,10 +181,17 @@
         {/each}
     </div>
 
-    <div class="space-x-2.5">
+    <div class="gap-x-2.5 flex w-full">
         <Button onClick={resetGame}>Reset Game</Button>
 
         <Button onClick={toggleStartScreen}>Main Menu</Button>
+
+        <Button className="grid place-items-center w-32" onClick={toggleBackgroundMusic}>
+            <img
+                alt={isBackgroundMusicMuted ? "Unmute background music" : "Mute background music"}
+                src={`imgs/${isBackgroundMusicMuted ? "muted" : "non-muted"}.svg`}
+            />
+        </Button>
     </div>
 </div>
 
