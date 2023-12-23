@@ -17,7 +17,7 @@
     let matched = [];
     let movements = 0;
     let score = 0;
-    let isBackgroundMusicMuted = false;
+    let isBackgroundMusicMuted = localStorage.getItem("isBackgroundMusicMuted") === "true";
 
     const sounds = {
         "background-music": null,
@@ -95,12 +95,13 @@
         sounds["background-music"].volume = isBackgroundMusicMuted ? 0.1 : 0;
 
         isBackgroundMusicMuted = !isBackgroundMusicMuted;
+        localStorage.setItem("isBackgroundMusicMuted", isBackgroundMusicMuted.toString());
     }
 
     onMount(() => {
         Object.entries(sounds).forEach(([key, sound]) => {
             if (key === "background-music") {
-                sound.volume = 0.1;
+                sound.volume = isBackgroundMusicMuted ? 0 : 0.1;
                 sound.play();
                 return;
             }
