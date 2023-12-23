@@ -15,6 +15,9 @@
     let movements = 0;
     let score = 0;
 
+    const BASE_POINTS = 500;
+    const TIMER_FACTOR = 0.5;
+
     function startTimer() {
         started = true;
         interval = setInterval(() => timer++, 1000);
@@ -62,12 +65,19 @@
         score = 0;
     }
 
+    function computeScore() {
+        score += Math.max(
+            Math.round(BASE_POINTS - timer * TIMER_FACTOR - movements),
+            Math.floor(BASE_POINTS / 10),
+        );
+    }
+
     $: {
         if (flipped.length === 2) {
             if (flipped[0].value === flipped[1].value) {
                 matched = [...matched, ...flipped];
                 flipped = [];
-                // TODO: Increase score
+                computeScore();
             } else {
                 setTimeout(() => {
                     const techsToFlip = [...flipped];
