@@ -173,7 +173,7 @@
     </div>
 
     <div class="space-x-2.5">
-        <Button onClick={resetGame}>Play Again</Button>
+        <Button onClick={resetGame}>Reset Game</Button>
 
         <Button onClick={toggleStartScreen}>Main Menu</Button>
     </div>
