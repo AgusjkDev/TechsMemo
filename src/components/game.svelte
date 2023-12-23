@@ -36,6 +36,8 @@
 
         techContainer.style = "transform: rotateY(90deg)";
         setTimeout(() => {
+            if (!started && !backwards) return;
+
             techElement.alt = backwards ? "Unknown" : tech.value;
             techElement.src = `imgs/${backwards ? "card-back" : `techs/${tech.value}`}.svg`;
             techContainer.style = "";
