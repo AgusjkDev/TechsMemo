@@ -41,7 +41,9 @@
         if (!backwards) movements++;
 
         const techContainer = document.querySelector(`[data-tech="${tech.id}"]`);
-        const techElement = techContainer.firstElementChild;
+        const techElement = techContainer?.firstElementChild;
+
+        if (!techContainer || !techElement) return;
 
         techContainer.style = "transform: rotateY(90deg)";
         setTimeout(() => {
