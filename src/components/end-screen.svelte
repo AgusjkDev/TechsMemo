@@ -21,7 +21,7 @@
 <div
     id="endScreen"
     style="opacity:0"
-    class="fixed z-[1] transition-opacity duration-500 inset-0 backdrop-blur-[8px] gap-y-12 flex flex-col items-center justify-center"
+    class="fixed z-[1] transition-opacity duration-700 inset-0 backdrop-blur-[8px] gap-y-12 flex flex-col items-center justify-center"
 >
     <div class="space-y-1">
         <h3 class="font-black text-center text-5xl">Score: {score}</h3>
