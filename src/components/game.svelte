@@ -59,6 +59,7 @@
         timer = 0;
         started = false;
         ended = false;
+        clearInterval(interval);
         interval = undefined;
         flipped = [];
         matched = [];
