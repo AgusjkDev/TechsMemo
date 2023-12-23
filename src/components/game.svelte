@@ -1,4 +1,6 @@
 <script>
+    import { onMount } from "svelte";
+
     import { getRandomTechs, formatTimer } from "utils";
     import EndScreen from "./end-screen.svelte";
     import Button from "./button.svelte";
@@ -15,6 +17,13 @@
     let matched = [];
     let movements = 0;
     let score = 0;
+
+    const sounds = {
+        "background-music": null,
+        click: null,
+        match: null,
+        "end-game": null,
+    };
 
     const BASE_POINTS = 500;
     const TIMER_FACTOR = 0.5;
@@ -48,6 +57,9 @@
     function handleTech(tech) {
         if (flipped.length === 2 || flipped.includes(tech)) return;
 
+        sounds.click.currentTime = 0;
+        sounds.click.play();
+
         if (!started) startTimer();
 
         flipped = [...flipped, tech];
@@ -76,12 +88,28 @@
         );
     }
 
+    onMount(() => {
+        Object.entries(sounds).forEach(([key, sound]) => {
+            if (key === "background-music") {
+                sound.volume = 0.1;
+                sound.play();
+                return;
+            }
+
+            sound.volume = 0.2;
+        });
+    });
+
     $: {
         if (flipped.length === 2) {
             if (flipped[0].value === flipped[1].value) {
                 matched = [...matched, ...flipped];
                 flipped = [];
-                computeScore();
+                setTimeout(() => {
+                    computeScore();
+                    sounds.match.currentTime = 0;
+                    sounds.match.play();
+                }, 750);
             } else {
                 setTimeout(() => {
                     const techsToFlip = [...flipped];
@@ -93,11 +121,31 @@
     }
 
     $: {
-        if (matched.length === techs.length) {
+        if (matched.length === techs.length && !ended) {
             clearInterval(interval);
             started = false;
             ended = true;
+            sounds["end-game"].currentTime = 0;
+            sounds["end-game"].play();
         }
+    }
+
+    $: {
+        Object.entries(sounds).forEach(([key, sound]) => {
+            if (!sound) return;
+
+            if (key === "background-music") {
+                sound.onended = () => {
+                    sound.currentTime = 0;
+                    sound.play();
+                };
+                return;
+            }
+
+            sound.onended = () => {
+                sound.currentTime = 0;
+            };
+        });
     }
 </script>
 
@@ -130,3 +178,7 @@
         <Button onClick={toggleStartScreen}>Main Menu</Button>
     </div>
 </div>
+
+{#each Object.keys(sounds) as sound}
+    <audio bind:this={sounds[sound]} src={`sounds/${sound}.mp3`} />
+{/each}
