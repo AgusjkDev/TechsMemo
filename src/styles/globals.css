@@ -1,6 +1,6 @@
 @font-face {
     font-family: "RoyalAcid";
-    src: url("fonts/RoyalAcid.ttf") format("truetype");
+    src: url("/fonts/RoyalAcid.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
