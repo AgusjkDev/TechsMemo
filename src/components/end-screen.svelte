@@ -28,9 +28,9 @@
         <h4 class="font-bold text-center text-2xl">Highscore: {highscore}</h4>
     </div>
 
-    <div class="space-x-2.5">
-        <Button onClick={resetGame}>Play Again</Button>
+    <div class="gap-x-2.5 flex">
+        <Button className="w-36" onClick={resetGame}>Play Again</Button>
 
-        <Button onClick={toggleStartScreen}>Main Menu</Button>
+        <Button className="w-36" onClick={toggleStartScreen}>Main Menu</Button>
     </div>
 </div>
