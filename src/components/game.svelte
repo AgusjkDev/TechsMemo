@@ -1,6 +1,7 @@
 <script>
     import { getRandomTechs, formatTimer } from "utils";
     import EndScreen from "./end-screen.svelte";
+    import Button from "./button.svelte";
 
     export let toggleStartScreen;
 
@@ -101,7 +102,7 @@
     <EndScreen {score} {resetGame} {toggleStartScreen} />
 {/if}
 
-<div class="w-[92.5%] md:w-auto space-y-8">
+<div class="w-[92.5%] md:w-auto flex flex-col gap-y-8 items-center">
     <div class="space-y-2">
         <h2 class="font-bold text-2xl text-center">{formatTimer(timer)}</h2>
         <h3 class="font-bold text-lg text-center">Movements: {movements}</h3>
@@ -119,4 +120,6 @@
             </button>
         {/each}
     </div>
+
+    <Button onClick={resetGame}>Reset Game</Button>
 </div>
